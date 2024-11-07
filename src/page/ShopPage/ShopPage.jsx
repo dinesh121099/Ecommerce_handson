@@ -1,6 +1,7 @@
 import CollectionPreview from '../../components/Collections/Collections';
 import SHOP_DATA from './ShopData';
 import { useEffect, useState } from 'react';
+//import { Outlet } from 'react-router-dom';
 
 const ShopPage = () => {
   const [shopData,setshopData] = useState([]);
@@ -9,8 +10,11 @@ const ShopPage = () => {
   }, [])
   
   return (
-     shopData.map(collection => <CollectionPreview collection={collection} />)
+    <>
+    {shopData.map(collection => <CollectionPreview collection={collection}/>)}
+    {/* <Outlet/> */}
+    </>
   )
-}
+};
 
-export default ShopPage
+export default ShopPage;
