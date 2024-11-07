@@ -5,7 +5,7 @@ import "./Collections.scss";
 const CollectionPreview = (props) => {
   return (
     <div className="collection-preview">
-      <Link to='' ><h1>{props.collection.title}</h1></Link>
+      <Link to = {`/shop?collections=${props.collection.routeName}`} ><h1>{props.collection.title}</h1></Link>
       <div className="preview">
         {props.collection.items.map(
           (item, index) =>index < 4? <CollectionItem item={item}/> : null

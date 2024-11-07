@@ -12,7 +12,7 @@ const Header = () => {
         </div>
         <div className="options">
           <NavLink className="option" to="/shop">SHOP</NavLink>
-          <NavLink className="option" to="/signin">SIGNIN</NavLink>
+          <NavLink className="option" to="/auth">SIGNIN</NavLink>
           <div className="option">CONTACT</div>
           <Carticon className="option" />
         </div>

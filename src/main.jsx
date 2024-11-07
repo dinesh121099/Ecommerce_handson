@@ -5,8 +5,8 @@ import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import HomePage from './page/HomePage/HomePage.jsx';
 import Header from './components/Header/Header.jsx';
 import ShopPage from './page/ShopPage/ShopPage.jsx';
-import SignIn from './page/SignIn/SignIn.jsx';
-import SHOP_DATA from './page/ShopPage/ShopData.js';
+import AuthenticationContainer from './page/AuthenticationContainer/AuthenticationContainer.jsx';
+//import SHOP_DATA from './page/ShopPage/ShopData.js';
 
 const router = createBrowserRouter([
   {
@@ -20,15 +20,15 @@ const router = createBrowserRouter([
       {
         path: "/shop",
         element: <ShopPage/>,
-        children: SHOP_DATA.map(collections => (
-          {path: collections.routeName,
-           element: <div>{collections.title}</div>
-          }
-        ))
+        // children: SHOP_DATA.map(collections => (
+        //   {path: collections.routeName,
+        //    element: <div>{collections.title}</div>
+        //   }
+        // ))
       },
       {
-        path: "/signin",
-        element: <SignIn/>
+        path: "/auth",
+        element: <AuthenticationContainer/>
       }
     ],
   }
