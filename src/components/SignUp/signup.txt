@@ -1,0 +1,73 @@
+--- useState[state, setState] ---
+    - Initial state: empty or null
+    - When form is filled we are updating the state
+    - when signup component's useState hooks sets the inital state in the memoized state queue
+    
+
+--- useEffect -> (() => {}, [dependencies])---
+- Mounting phase
+    - Runs once after the initial render
+    - If dependencies are empty or not provided. i.e, secong argument of useEffect as empty array [].
+- Updating phase
+    - Runs only if the dependencies are changed
+    - (() => {},[emailChanged, passwordChanged])
+- Cleanup Phase (optional phase)
+    -if the useEffect() return another function, the function will act as a clean for that effect
+    - (() => {
+        return() => {
+            //body of clean up
+        }
+    },[dependencies])
+- Unmounting phase
+    - when component we need to removef rom ReactDOM.
+    - any clean up from the effect runs if defined
+
+    Component mounts
+            |
+    useEffect initialized
+            |
+    Effect runs based on dependencies
+        Every render (no dependency)
+        Once ([emptyArray])
+        On dependency change ([specficDependency])
+            |
+    Clean up (if applicable)
+        Runs before the next render or Unmounting
+            |
+    Component Unmount
+        Effect cleanup executes if applicable
+
+--- Axios ---
+- Promise based HTTP client for the browser
+- It makes async HTTP request to REST endpoints and return a promise (fulfilled, rejected, pending)
+
+    When component renders
+            |
+    Component mounts or updates
+        it may trigger an API call
+            |
+    Axios request setup
+        HTTP method (get, post, put delete, etc)
+        URL - specfiying the endpoint you are trying to reach.
+        Options - where request headers, request body, query params etc.
+            |
+    Sending the axios request
+            |
+    Server response
+        Server receives the request, processes it & send back to the client
+            |
+    Handling the response
+        Axios returns a promise
+        .then() -> if fulfilled, .catch() -> if error occured
+        Promise chaining
+            |
+    Updating component state
+        Using useState, setState to store the response data inside the component state.
+        Which re-renders the component with passive effect
+            |
+    Error Handling
+        If the server response with error 404, 500, etc...
+        Handle it with try catch
+
+--- useForm and useFormState---
+

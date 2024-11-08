@@ -1,8 +1,9 @@
+import { forwardRef } from "react";
 
-const CustomInput = ({children, ...otherProps}) => {
+const CustomInput = forwardRef(({...otherProps}, ref) => {
   return (
-    <input {...otherProps}>{children}</input>
+    <input {...otherProps} ref={ref}/>
   )
-}
+});
 
 export default CustomInput;

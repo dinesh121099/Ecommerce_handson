@@ -1,15 +1,26 @@
-import React, { useEffect, useState } from "react";
+//import { useEffect, useState } from "react";
 import CustomInput from "../CustomInput/CustomInput";
 import CustomButton from "../CustomButton/CustomButton";
 import axios from "axios";
+import { useForm, useFormState } from "react-hook-form";
 
 const SignUp = () => {
-  const [displayName, setDisplayName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState([]);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  // const [displayName, setDisplayName] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [errors, setErrors] = useState([]);
+  // const [isSubmitting, setIsSubmitting] = useState(false);
+  const { register, handleSubmit, control } = useForm({
+    defaultValues: {
+      displayName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+  });
+  const { errors }= useFormState({control});
 
+  /*
   useEffect(() => {
     const newErrors = {};
     if (!email) {
@@ -21,10 +32,15 @@ const SignUp = () => {
     }
     setErrors(newErrors);
   }, [email, password]);
+  */
 
-  const handleSubmit = async (e) => {
+  /*
+  const onSubmit = async (displayName, email, password, confirmPassword) => {
     e.preventDefault();
     setIsSubmitting(true);
+    if(password!= confirmPassword){
+        alert("Password doesnot match");
+    }
     if (Object.keys(errors.length === 0)) {
       try {
         const resp = await axios.post("http://localhost:3000/user", {
@@ -42,44 +58,76 @@ const SignUp = () => {
     }
     setIsSubmitting(false);
   };
+  */
+  const submitToApi = async (formData) => {
+    try {
+      const resp = await axios.post("http://localhost:3000/user", {
+        displayName,
+        email,
+        password,
+      });
+      alert("User created sucessfully!");
+    } catch {
+      alert("Error creating user");
+    }
+  };
+
+  const onSubmit = (data) => {
+    const { displayName, email, password, confirmPassword } = data;
+    if (password != confirmPassword) {
+      alert("Password Doesnot match");
+      return;
+    }
+
+    submitToApi({ displayName, email, password });
+  };
 
   return (
     <div className="signup-container">
       <h2>Don't have an account?</h2>
       <span>Sign up with your email & password</span>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <CustomInput
-          label="Display name"
+          label="Display Name"
           type="text"
-          name="displayName"
-          placeholder="Display name"
-          value={displayName}
-          onChange={(e) => setDisplayName(e.target.value)}
+          placeholder="Display Name"
           required
+          {...register("displayName", { required: "displayName" })}
         />
         {errors.displayName && (
           <p style={{ color: "red" }}>{errors.displayName}</p>
         )}
         <CustomInput
-          label="email"
-          type="emailt"
-          name="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          label="Email"
+          type="email"
+          placeholder="Email here"
           required
+          {...register("email", {
+            required: "Email is required",
+            pattern: {
+              value: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+              message: "Invalid email format",
+            },
+          })}
         />
         {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
         <CustomInput
-          label="password"
+          label="Password"
           type="password"
-          name="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password Here"
+          {...register("password", { required: "Password is required" })}
           required
         />
         {errors.password && <p style={{ color: "red" }}>{errors.password}</p>}
+        <CustomInput
+          label="Confirm Password"
+          type="password"
+          placeholder="Confirm Password Here"
+          {...register("confirmPassword", {
+            required: "Confirm Password is required",
+          })}
+          required
+        />
         <CustomButton type="submit">SIGN UP</CustomButton>
       </form>
     </div>
