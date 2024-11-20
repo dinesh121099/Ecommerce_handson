@@ -1,137 +1,111 @@
-//import { useEffect, useState } from "react";
-import CustomInput from "../CustomInput/CustomInput";
-import CustomButton from "../CustomButton/CustomButton";
-import axios from "axios";
-import { useForm, useFormState } from "react-hook-form";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { signUpUser, updateFormData } from '../../features/signup/signup-slice';
+import CustomInput from '../CustomInput/CustomInput';
+import CustomButton from '../CustomButton/CustomButton';
+import './SignUp.scss';
 
 const SignUp = () => {
-  // const [displayName, setDisplayName] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [errors, setErrors] = useState([]);
-  // const [isSubmitting, setIsSubmitting] = useState(false);
-  const { register, handleSubmit, control } = useForm({
-    defaultValues: {
-      displayName: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-    },
-  });
-  const { errors }= useFormState({control});
+    
+    // dispatching the data from thr component through action
+    const dispatch = useDispatch();
+    
+    //selecting data from the store
+    const formData = useSelector((state) => state.signup.formData);
+    const errors= useSelector((state) => state.signup.errors);
+    const status = useSelector((state) => state.signup.status);
+    const errorMessage = useSelector((state) => state.signup.errorMessage);
+    
+    //event change for input feilds
+    const handleChange = (e) => {
+      const {name, value} = e.target;
+      dispatch(updateFormData({[name]: value}));
+    };
 
-  /*
-  useEffect(() => {
-    const newErrors = {};
-    if (!email) {
-      newErrors.email = "Email is required!";
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
-      newErrors.email = "Email address is invalid";
-    } else if (password.length < 6) {
-      newErrors.password = "Password must be of minimum length 6";
-    }
-    setErrors(newErrors);
-  }, [email, password]);
-  */
+    //validating the input feilds
+    const validateForm = () => {
+        let errors ={};
+        if(!formData.displayName.trim())
+            errors.displayName = "Display name is requiered";
+        if(!formData.email.trim())
+            errors.email = "Email is requiered";
+        if(!formData.password.trim())
+            errors.password = "password is requiered";
+        if(formData.password !== formData.confirmPassword)
+            errors.confirmPassword = "Password does not match!";
+        if(!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(formData.email))
+            errors.email = "Please enter a valid email address";
+        return errors;
+    };
 
-  /*
-  const onSubmit = async (displayName, email, password, confirmPassword) => {
+    // submitting the validation errors and formData to redux store
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    if(password!= confirmPassword){
-        alert("Password doesnot match");
-    }
-    if (Object.keys(errors.length === 0)) {
-      try {
-        const resp = await axios.post("http://localhost:3000/user", {
-          displayName,
-          email,
-          password,
-        });
-        alert("sign up sucessfull!");
-      } catch (err) {
-        console.log("Signup failed", err);
-        alert("sign up failed. please try again!");
-      }
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length) {
+      dispatch(setError(validationErrors));
     } else {
-      alert("please fix the errors before submitting.");
-    }
-    setIsSubmitting(false);
-  };
-  */
-  const submitToApi = async (formData) => {
-    try {
-      const resp = await axios.post("http://localhost:3000/user", {
-        displayName,
-        email,
-        password,
-      });
-      alert("User created sucessfully!");
-    } catch {
-      alert("Error creating user");
+      dispatch(signUpUser(formData));
+      alert("signup successful");
     }
   };
-
-  const onSubmit = (data) => {
-    const { displayName, email, password, confirmPassword } = data;
-    if (password != confirmPassword) {
-      alert("Password Doesnot match");
-      return;
-    }
-
-    submitToApi({ displayName, email, password });
-  };
-
+ 
   return (
-    <div className="signup-container">
+    <div className="sign-up-container">
       <h2>Don't have an account?</h2>
       <span>Sign up with your email & password</span>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit}>
         <CustomInput
-          label="Display Name"
+          className = "custom-input"
+          label="Display name"
           type="text"
-          placeholder="Display Name"
           required
-          {...register("displayName", { required: "displayName" })}
+          name="displayName"
+          placeholder="Enter Display Name Here"
+          value={formData.displayName}
+          onChange={handleChange}
         />
         {errors.displayName && (
           <p style={{ color: "red" }}>{errors.displayName}</p>
         )}
         <CustomInput
+          className = "custom-input"
           label="Email"
           type="email"
-          placeholder="Email here"
           required
-          {...register("email", {
-            required: "Email is required",
-            pattern: {
-              value: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-              message: "Invalid email format",
-            },
-          })}
+          name="email"
+          placeholder="Email Here" 
+          value={formData.email}
+          onChange={handleChange}
         />
         {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
         <CustomInput
+          className = "custom-input"
           label="Password"
           type="password"
-          placeholder="Password Here"
-          {...register("password", { required: "Password is required" })}
           required
+          placeholder="Password Here"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
         />
         {errors.password && <p style={{ color: "red" }}>{errors.password}</p>}
         <CustomInput
-          label="Confirm Password"
+          className = "custom-input"
+          label="Confirm password"
           type="password"
-          placeholder="Confirm Password Here"
-          {...register("confirmPassword", {
-            required: "Confirm Password is required",
-          })}
           required
+          placeholder="Confirm Password Here"
+          name="confirmPassword"
+          value={formData.confirmPassword}
+          onChange={handleChange}
         />
-        <CustomButton type="submit">SIGN UP</CustomButton>
+        <div className='my-button'>
+        <CustomButton type="submit"className="custom-button">Sign Up</CustomButton>
+        </div>
       </form>
     </div>
   );
 };
 
-export default SignUp;
+export default SignUp

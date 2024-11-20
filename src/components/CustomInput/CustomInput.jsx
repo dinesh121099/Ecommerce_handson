@@ -1,4 +1,5 @@
 import { forwardRef } from "react";
+import './CustomInput.scss';
 
 const CustomInput = forwardRef(({...otherProps}, ref) => {
   return (

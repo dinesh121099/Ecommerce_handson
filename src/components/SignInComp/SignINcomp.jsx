@@ -49,10 +49,9 @@ const SignINcomp = () => {
               value={password}
               onChange={(e)=>setPassword(e.target.value)}
             />
-            <CustomButton 
-            className="custom-button" 
-            type="submit"
-            >Sign In</CustomButton>
+            <div className='my-button'>
+            <CustomButton className="custom-button" type="submit">Sign In</CustomButton>
+            </div>
         </form>
     </div>
   )

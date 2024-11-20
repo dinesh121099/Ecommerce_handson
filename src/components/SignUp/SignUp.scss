@@ -1,7 +1,14 @@
 .sign-up-container {
+    width: 300px;
     display: flex;
     flex-direction: column;
-    width: 380px;
+    align-items: center;
+    border: 1px solid rgb(223, 223, 223);
+
+    .my-button{
+      display: flex;
+      justify-content: center;
+    }
    
     h2 {
       margin: 10px 0;

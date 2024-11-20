@@ -6,8 +6,12 @@ import SignUp from '../../components/SignUp/SignUp';
 const AuthenticationContainer = () => {
   return (
     <div className="authentication-container">
-      <SignINcomp/>
-      <SignUp/>
+      <div className="card-shadow">
+      <SignINcomp />
+      </div>
+      <div className="card-shadow">
+      <SignUp className="card-shadow"/>
+      </div>
     </div>
   )
 }
