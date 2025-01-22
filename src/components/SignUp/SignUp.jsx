@@ -1,4 +1,3 @@
-import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { signUpUser, updateFormData } from '../../features/signup/signup-slice';
 import CustomInput from '../CustomInput/CustomInput';
@@ -6,7 +5,6 @@ import CustomButton from '../CustomButton/CustomButton';
 import './SignUp.scss';
 
 const SignUp = () => {
-    
     // dispatching the data from thr component through action
     const dispatch = useDispatch();
     
@@ -49,10 +47,10 @@ const SignUp = () => {
       alert("signup successful");
     }
   };
- 
+
   return (
     <div className="sign-up-container">
-      <h2>Don't have an account?</h2>
+      <h2>Don`t have an account?</h2>
       <span>Sign up with your email & password</span>
       <form onSubmit={handleSubmit}>
         <CustomInput

@@ -1,24 +1,94 @@
 .cart-dropdown {
-    position: absolute;
-    width: 240px;
-    height: 340px;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    border: 1px solid black;
-    background-color: white;
-    top: 90px;
-    right: 40px;
-    z-index: 5;
-  
-    .cart-items {
-      height: 240px;
-      display: flex;
-      flex-direction: column;
-      overflow: scroll;
-    }
-  
-    button {
-      margin-top: auto;
-    }
+  position: absolute;
+  width: 280px;
+  height: 380px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0);
+  top: 50px;
+  right: 40px;
+  z-index: 5;
+  transition: all 0.5s ease;
+  overflow: hidden;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.cart-dropdown:hover {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+}
+
+.cart-items {
+  height: 270px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: 10px 0;
+  margin-bottom: 20px;
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f1f1f1;
+}
+
+.cart-items::-webkit-scrollbar {
+  width: 6px;
+}
+
+.cart-items::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 10px;
+}
+
+.cart-items::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+img {
+  width: 30%;
+  border-radius: 6px;
+}
+
+.item-details {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 10px 20px;
+}
+
+.name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.price {
+  font-size: 14px;
+  font-weight: 400;
+  color: #666;
+}
+
+.button {
+  margin-top: auto;
+}
+
+.custom-button {
+  background-color: #ff6347; /* Tomato red color */
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  width: 100%;
+}
+
+.custom-button:hover {
+  background-color: #e5533b;
+  transform: scale(1.05);
 }

@@ -2,13 +2,14 @@
     height: 70px;
     width: 100%;
     display: flex;
+    background-color: black;
     justify-content: space-between;
     margin-bottom: 25px;
   
     .logo-container {
       height: 100%;
       width: 70px;
-      padding: 25px;
+      padding: 15px;
     }
     
     .cart-container {
@@ -27,7 +28,7 @@
       .option {
         padding: 10px 15px;
         text-decoration: none;
-        color: black;
+        color: whitesmoke;
       }
     }
   }

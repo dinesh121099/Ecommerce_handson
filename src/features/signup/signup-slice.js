@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { getResponseDescription } from "../ErrorResponses/ErrorResponseCodes";
 
 export const signUpUser = createAsyncThunk('signup/signUpUser',
     async (formData, {rejectWithValue}) => {
@@ -20,12 +21,13 @@ export const signUpUser = createAsyncThunk('signup/signUpUser',
 );
 
 const signUpSlice = createSlice({
-    name:'signuo',
+    name:'signup',
     initialState: {
         formData: {
             displayName: "",
             email: "",
             password: "",
+            confirmPassword: ""
         },
     errors: {},
     status: "idle", //idle -> idle, loading, succeded, failed

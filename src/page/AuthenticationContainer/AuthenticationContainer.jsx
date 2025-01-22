@@ -1,4 +1,3 @@
-import React from 'react';
 import SignINcomp from '../../components/SignInComp/SignINcomp';
 import './AuthenticationContainer.scss';
 import SignUp from '../../components/SignUp/SignUp';
@@ -10,7 +9,7 @@ const AuthenticationContainer = () => {
       <SignINcomp />
       </div>
       <div className="card-shadow">
-      <SignUp className="card-shadow"/>
+      <SignUp />
       </div>
     </div>
   )
