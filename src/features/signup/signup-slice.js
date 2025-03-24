@@ -9,7 +9,7 @@ export const signUpUser = createAsyncThunk('signup/signUpUser',
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify(formData),             
             });
             if(!resp.ok) throw new Error('SignUp failed!');
             return await resp.json();
