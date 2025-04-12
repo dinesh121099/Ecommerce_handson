@@ -56,7 +56,7 @@ const ShopPage = () => {
               }}
             >
               <h2 style={{ padding: "15px 0 0 0" }}>
-                {collection.title.toUpperCase()}
+                {collection.title?.toUpperCase()}
               </h2>
             </Link>
             <div style={{ display: "flex", flexWrap: "wrap", margin: "40px" }}>

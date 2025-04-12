@@ -6,10 +6,10 @@ const AuthenticationContainer = () => {
   return (
     <div className="authentication-container">
       <div className="card-shadow">
-      <SignINcomp />
+        <SignINcomp />
       </div>
       <div className="card-shadow">
-      <SignUp />
+        <SignUp />
       </div>
     </div>
   )
